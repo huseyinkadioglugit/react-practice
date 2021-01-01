@@ -1,41 +1,44 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Person from './Person/Person';
 
-class App extends Component {
+const app = props => {
 
-  state = {
+  const [ personsState, setPersonsState ] = useState({
     persons : [
       { name: 'Max', age: 28},
       { name : 'Manu', age: 29},
       { name: 'Steph', age:26}
     ],
     otherState: 'some other value'
-  }
+  }); 
 
-  switchNameHandler = () => {
+  console.log(personsState);
+
+  const switchNameHandler = () => {
     //console.log('Was clicked!');
     // DONT DO THIS : this.state.persons[0].name = 'Maximillian';
    // setState only changes overriding.
-    this.setState( { persons : [
-      { name: 'Maximillian', age: 28},
-      { name : 'Manu', age: 29},
-      { name: 'Stephanie', age:26}
-    ] });
+    setPersonsState( { 
+      persons : [
+      { name: 'Hüseyin', age:24},
+      { name : 'Melisa', age: 22},
+      { name: 'Devran', age:1}
+    ],
+    otherState: 'some other value'
+  
+  });
   }
 
-  render() {
     return (
       <div className="App">
           <h1>Hi, Im'a react app!</h1>
           <p>This is really working!!</p>
-          <button onClick={this.switchNameHandler}> Switch Name</button>
-        <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
-        <Person name={this.state.persons[1].name} age={this.state.persons[1].age}> My Hobbies: Racing</Person>
-        <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
+          <button onClick={switchNameHandler}> Switch Name</button>
+        <Person name={personsState.persons[0].name} age={personsState.persons[0].age}/>
+        <Person name={personsState.persons[1].name} age={personsState.persons[1].age}> My Hobbies: Racing</Person>
+        <Person name={personsState.persons[2].name} age={personsState.persons[2].age}/>
       </div>
     );
-  }
 }
-
-export default App;
+export default app;
