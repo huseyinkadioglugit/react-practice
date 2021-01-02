@@ -49,16 +49,13 @@ const style = {
   cursor: 'pointer'
 };
 
-    return (
-      <div className="App">
-          <h1>Hi, Im'a react app!</h1>
-          <p>This is really working!!</p>
-          <button
-          style={style}
-          onClick={this.togglePersonsHandler}> Switch Name</button>
-       { this.state.showPersons ? 
-         
-         <div >
+let persons = null;
+
+
+if(this.state.showPersons){
+  // persons true ise aşağıdaki JSX yazdırılacak, false ise null dönecek.
+  persons = (
+<div >
           <Person
             name={this.state.persons[0].name} 
             age={this.state.persons[0].age}/>
@@ -71,10 +68,18 @@ const style = {
             <Person
             name={this.state.persons[2].name}
               age={this.state.persons[2].age}/>
-          </div>: null
-          // null means render nothing.
-          
-          }
+          </div>
+  );
+}
+
+    return (
+      <div className="App">
+          <h1>Hi, Im'a react app!</h1>
+          <p>This is really working!!</p>
+          <button
+          style={style}
+          onClick={this.togglePersonsHandler}> Toggle Person </button>
+         {persons}
       </div>
     );
   }
