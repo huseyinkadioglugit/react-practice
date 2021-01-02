@@ -7,9 +7,9 @@ class App extends Component {
 
   state = {
     persons : [
-      { name: 'Max', age: 28},
-      { name : 'Manu', age: 29},
-      { name: 'Steph', age:26}
+      {id : 'asdfas', name: 'Max', age: 28},
+      {id : 'asdaw2', name : 'Manu', age: 29},
+      {id : '213asd', name: 'Steph', age:26}
     ],
     otherState: 'some other value',
     showPersons: false
@@ -24,13 +24,23 @@ class App extends Component {
 
   }
 
-  nameChangedHandler = (event) => {
-    this.setState( {
-       persons : [
-      {id : 'asdfas' ,name: 'Max', age: 28},
-      {id : 'asdaw2' ,name : event.target.value, age: 29},
-      {id : '213asd' ,name: 'Stephanie', age:26}
-    ] });
+  nameChangedHandler = (event, id) => {
+
+    const personIndex = this.state.persons.findIndex(p=> {
+      return p.id===id;
+    });
+
+    const person = {
+      ...this.state.persons[personIndex]
+    }; // Get from original data, but copies it.
+
+    // const person = Object.assign({},this.state.persons[personIndex]); Same but oldschool.
+
+    person.name = event.target.value;
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    this.setState(  {persons : persons} );
   }
 
   togglePersonsHandler = () => {
@@ -62,6 +72,7 @@ if(this.state.showPersons){
               name={person.name} 
               age={person.age}
               key={person.id}
+              changed={(event) => this.nameChangedHandler(event,person.id)}
               />
             })}
          </div>
