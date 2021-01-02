@@ -15,15 +15,13 @@ class App extends Component {
     showPersons: false
   }
 
-  switchNameHandler = (newName) => {
-    //console.log('Was clicked!');
-    // DONT DO THIS : this.state.persons[0].name = 'Maximillian';
-   // setState only changes
-    this.setState( { persons : [
-      { name: newName, age: 28},
-      { name : 'Manu', age: 29},
-      { name: 'Stephanie', age:26}
-    ] });
+  deletePersonHandler = (personIndex) => {
+   // const persons = this.state.persons.slice(); // Copies the new array.
+   const persons = [...this.state.persons]; // new array with the object of the old array. But the not old array itself. Modern one! Use this!
+    persons.splice(personIndex,1);
+    //In JS, obj and arrays are reference types. Orijinal dataya ulaşıyorum. Bu bad practice. Kopya oluşturmalıyız.
+    this.setState({persons:persons});
+
   }
 
   nameChangedHandler = (event) => {
@@ -58,8 +56,12 @@ if(this.state.showPersons){
   // render metodunun içinde yazmak mantıklı mı bilemiyorum.
      persons = (
         <div >
-          {this.state.persons.map(person => {
-              return <Person name={person.name} age={person.age} />
+          {this.state.persons.map((person,index) => {
+              return <Person 
+              name={person.name} 
+              age={person.age}
+              click={() => this.deletePersonHandler(index)}
+              />
             })}
          </div>
   );
