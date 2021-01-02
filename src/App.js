@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
+import Radium from 'radium';
 
 class App extends Component {
 
@@ -48,14 +49,19 @@ class App extends Component {
   } 
 
   render() {
-
+// radium : inline olarak kullanmamızı sağlıyor.
 const style = {
   color: 'white',
   backgroundColor: 'green',
   font: 'inherit',
   border: '1px solid blue',
   padding: '8 px' ,
-  cursor: 'pointer'
+  cursor: 'pointer',
+  //sudo selector are usable with radium but use with ''
+  ':hover': {
+    backgroundColor: 'lightgreen',
+    color: 'black'
+  }
 };
 
 let persons = null;
@@ -79,6 +85,12 @@ if(this.state.showPersons){
   );
 
   style.backgroundColor = 'red';
+  style[':hover'] = {
+   
+      backgroundColor: 'lightred',
+      color: 'black'
+    
+  }
 }
 
   let classes = [];
@@ -103,4 +115,4 @@ if(this.state.showPersons){
   }
 }
 
-export default App;
+export default Radium(App); // higher order component -> Component warrapping your component.
